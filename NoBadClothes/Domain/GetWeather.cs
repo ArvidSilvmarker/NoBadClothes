@@ -42,8 +42,9 @@ namespace NoBadClothes
                 $"opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/{CoordinateWithDot(station.Longitude)}/lat/{CoordinateWithDot(station.Latitude)}/data.json";
             string url = scheme + hostPath;
             File.WriteAllText(@"log.txt", url);
-            var jsonTemp = new WebClient().DownloadString(url);
-            Forecast forecast = JsonConvert.DeserializeObject<Forecast>(jsonTemp);
+
+            var json = new WebClient().DownloadString(url);
+            Forecast forecast = JsonConvert.DeserializeObject<Forecast>(json);
             return forecast;
         }
 

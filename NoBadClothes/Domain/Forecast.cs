@@ -11,7 +11,7 @@ namespace NoBadClothes
         public DateTime approvedTime { get; set; }
         public DateTime referenceTime { get; set; }
         public Geometry geometry { get; set; }
-        public Timesery[] timeSeries { get; set; }
+        public List<Timeseries> timeSeries { get; set; }
 
 
         public class Geometry
@@ -20,10 +20,10 @@ namespace NoBadClothes
             public float[][] coordinates { get; set; }
         }
 
-        public class Timesery
+        public class Timeseries
         {
             public DateTime validTime { get; set; }
-            public Parameter[] parameters { get; set; }
+            public List<Parameter> parameters { get; set; }
         }
 
         public class Parameter
@@ -32,7 +32,7 @@ namespace NoBadClothes
             public string levelType { get; set; }
             public int level { get; set; }
             public string unit { get; set; }
-            public float[] values { get; set; }
+            public List<float> values { get; set; }
         }
 
     }

@@ -25,19 +25,14 @@ namespace NoBadClothes
             }
         }
 
-        [Route("toptencities2"), HttpGet]
-        public IActionResult TopTenCities2(string test)
+        [Route("gbgnexthourtemp"), HttpGet]
+        public IActionResult GbgNextHourTemp()
         {
-            try
-            {
-                Forecast goteborgForecast = _getWeatherFromSMHI.GetJsonForecast2(new Station { Name = "Göteborg", Latitude = 57.4018, Longitude = 11.5851 });
-                string text = goteborgForecast.timeSeries[0].parameters[11].values[0].ToString();
-                return Ok(text);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            Station station = new Station {Name = "Göteborg", Latitude = 57.4018, Longitude = 11.5851};
+            Forecast goteborgForecast = _getWeatherFromSMHI.GetJsonForecast2(station);
+            DateTime nextFullHour = new DateTime(DateTime.Now.Year,DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour+1, 0,0);
+            string temp = goteborgForecast.timeSeries.First(t => t.validTime == nextFullHour).parameters.First(p => p.name == "t").values[0].ToString();
+            return Ok($"Temperaturen i {station.Name} klockan {nextFullHour.TimeOfDay} blir {temp} grader.");
         }
 
     }
