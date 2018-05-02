@@ -1,1 +1,1 @@
-https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/11.585100/lat/57.401800/data.json
+https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16.858000/lat/58.344600/data.json
