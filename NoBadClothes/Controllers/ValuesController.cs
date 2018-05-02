@@ -38,5 +38,12 @@ namespace NoBadClothes
             }
         }
 
+        [Route("getweather"), HttpGet]
+        public IActionResult GetWeather(string cityName, DateTime datetime)
+        {
+            var station = stationRepository.GetStation(cityName);
+            return (Ok(station.Name));
+        }
+
     }
 }

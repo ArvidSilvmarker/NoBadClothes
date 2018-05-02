@@ -19,5 +19,10 @@ namespace NoBadClothes.Data
             }
 
         }
+
+        public Station GetStation(string cityName)
+        {
+            return context.Stations.FirstOrDefault(s => s.Name == cityName);
+        }
     }
 }
