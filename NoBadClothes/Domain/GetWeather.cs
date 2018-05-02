@@ -15,7 +15,8 @@ namespace NoBadClothes
 
         public Station GetForecast(Station station)
         {
-            return _weatherReader.UpdateStation(GetJsonForecast(station), station);
+            return new Station();
+            //return _weatherReader.UpdateStation(GetJsonForecast(station), station);
         }
 
         public List<Station> GetForecasts(List<Station> stations)
@@ -23,19 +24,7 @@ namespace NoBadClothes
             return stations.Select(GetForecast).ToList();
         }
 
-        public JObject GetJsonForecast(Station station)
-        {
-            string scheme = @"https://";
-            string hostPath = 
-                $"opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/{CoordinateWithDot(station.Longitude)}/lat/{CoordinateWithDot(station.Latitude)}/data.json";
-            string url = scheme + hostPath;
-            File.WriteAllText(@"log.txt",url);
-            var jsonTemp = new WebClient().DownloadString(url);
-            var jsonTempObject = (JObject)JsonConvert.DeserializeObject(jsonTemp);
-            return jsonTempObject;
-        }
-
-        public Forecast GetJsonForecast2(Station station)
+        public Forecast GetJsonForecast(Station station)
         {
             string scheme = @"https://";
             string hostPath =
