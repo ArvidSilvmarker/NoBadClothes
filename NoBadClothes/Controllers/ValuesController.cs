@@ -9,14 +9,20 @@ namespace NoBadClothes
     [Route("api/weather")]
     public class ValuesController : Controller
     {
+        private GetWeather _getWeatherFromSMHI = new GetWeather();
 
-        [Route("test"), HttpGet]
-        public IActionResult Test(string test)
+        [Route("toptencities"), HttpGet]
+        public IActionResult TopTenCities(string test)
         {
-            var result = new ReadWeather().ReadJson(new GetWeather().GetJsonForecastGothenburg());
-
-
-            return Ok(result);
+            try
+            {
+                var topTen = _getWeatherFromSMHI.GetForecastTopTenCities();
+                return Json(topTen);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
        
     }
