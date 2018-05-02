@@ -9,11 +9,13 @@ namespace NoBadClothes
     public class NoBadContext : DbContext
     {
         public DbSet<Station> Stations { get; set; }
+        public DbSet<Weather> Weathers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
                 "Server = (localdb)\\mssqllocaldb; Database = db-nobadclothes; Trusted_Connection = True; ");
         }
+
     }
 }
