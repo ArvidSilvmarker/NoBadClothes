@@ -11,24 +11,28 @@ namespace NoBadClothes
 {
     public class GetWeather
     {
-        public JObject GetJsonForecast(double longitude, double latitude )
+        private ReadWeather _weatherReader = new ReadWeather();
+
+        public Station GetForecast(Station station)
+        {
+            return _weatherReader.UpdateStation(GetJsonForecast(station), station);
+        }
+
+        public List<Station> GetForecasts(List<Station> stations)
+        {
+            return stations.Select(GetForecast).ToList();
+        }
+
+        public JObject GetJsonForecast(Station station)
         {
             string scheme = @"https://";
             string hostPath = 
-                $"opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/{CoordinateWithDot(longitude)}/lat/{CoordinateWithDot(latitude)}/data.json";
+                $"opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/{CoordinateWithDot(station.Longitude)}/lat/{CoordinateWithDot(station.Latitude)}/data.json";
             string url = scheme + hostPath;
             File.WriteAllText(@"log.txt",url);
             var jsonTemp = new WebClient().DownloadString(url);
             var jsonTempObject = (JObject)JsonConvert.DeserializeObject(jsonTemp);
             return jsonTempObject;
-        }
-
-        public JObject GetJsonForecastGothenburg()
-        {
-            double longitude = 11.974560;
-            double latitude = 57.708870;
-            
-            return GetJsonForecast(longitude, latitude);
         }
 
         public string CoordinateWithDot(double coordinate)
@@ -37,5 +41,20 @@ namespace NoBadClothes
         }
 
 
+        public List<Station> GetForecastTopTenCities()
+        {
+            List<Station> topTen = new List<Station>();
+            topTen.Add(new Station { Name = "Stockholm", Latitude = 59.1446, Longitude = 18.47 });
+            topTen.Add(new Station { Name = "Göteborg", Latitude = 57.4018, Longitude = 11.5851 });
+            topTen.Add(new Station { Name = "Malmö", Latitude = 55.3535, Longitude = 13.117 });
+            topTen.Add(new Station { Name = "Uppsala", Latitude = 59.5059, Longitude = 17.3820 });
+            topTen.Add(new Station { Name = "Västerås", Latitude = 59.372, Longitude = 16.3231 });
+            topTen.Add(new Station { Name = "Örebro", Latitude = 59.161, Longitude = 15.1147 });
+            topTen.Add(new Station { Name = "Linköping", Latitude = 58.2434, Longitude = 15.3732 });
+            topTen.Add(new Station { Name = "Helsingborg", Latitude = 56.233, Longitude = 12.4316 });
+            topTen.Add(new Station { Name = "Jönköping", Latitude = 57.4649, Longitude = 14.1539 });
+            topTen.Add(new Station { Name = "Norrköping", Latitude = 58.3446, Longitude = 16.858 });
+            return GetForecasts(topTen);
+        }
     }
 }
