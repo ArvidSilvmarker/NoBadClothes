@@ -10,6 +10,12 @@ namespace NoBadClothes.Data
     {
         private NoBadContext context = new NoBadContext();
 
+        public void ClearDatabase()
+        {
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+        }
+
         public void AddStations(List<Station> topTen)
         {
             using (context)
@@ -18,6 +24,11 @@ namespace NoBadClothes.Data
                 context.SaveChanges();
             }
 
+        }
+
+        public Station GetStation(string cityName)
+        {
+            return context.Stations.FirstOrDefault(s => s.Name == cityName);
         }
     }
 }
