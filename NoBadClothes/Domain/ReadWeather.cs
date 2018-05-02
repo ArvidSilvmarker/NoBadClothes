@@ -15,8 +15,9 @@ namespace NoBadClothes
             var temperature = (double)jObject["timeSeries"][0]["parameters"][11]["values"][0];
             var windDirection = (int)jObject["timeSeries"][0]["parameters"][13]["values"][0];
             var windSpeed = (double)jObject["timeSeries"][0]["parameters"][14]["values"][0];
-            var WindGust = (string)jObject["timeSeries"][0]["parameters"][17]["values"][0];
-            var WindGust = (string)jObject["timeSeries"][0]["parameters"][17]["values"][0];
+            var WindGust = (double)jObject["timeSeries"][0]["parameters"][17]["values"][0];
+            // var pCat = (int)jObject["timeSeries"][0]["parameters"][17]["values"][0];
+            var weatherSymbol = (int)jObject["timeSeries"][0]["parameters"][18]["values"][0];
 
 
             station.MorningWeather.Temperature = temperature;
