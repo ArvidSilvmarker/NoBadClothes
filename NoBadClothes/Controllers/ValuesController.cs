@@ -13,10 +13,10 @@ namespace NoBadClothes
         [Route("test"), HttpGet]
         public IActionResult Test(string test)
         {
+            var result = new ReadWeather().ReadJson(new GetWeather().GetJsonForecastGothenburg());
 
 
-
-            return Ok("Väder!");
+            return Ok(result);
         }
        
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,13 +13,29 @@ namespace NoBadClothes
     {
         public JObject GetJsonForecast(double longitude, double latitude )
         {
-            var jsonTemp = new WebClient().DownloadString($"https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/{longitude}/lat/{latitude}/data.json");
+            string scheme = @"https://";
+            string hostPath = 
+                $"opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/{CoordinateWithDot(longitude)}/lat/{CoordinateWithDot(latitude)}/data.json";
+            string url = scheme + hostPath;
+            File.WriteAllText(@"log.txt",url);
+            var jsonTemp = new WebClient().DownloadString(url);
             var jsonTempObject = (JObject)JsonConvert.DeserializeObject(jsonTemp);
             return jsonTempObject;
-
-            var exempel = (string)jsonTempObject["timeSeries"][0]["parameters"][0]["name"];
-            Console.WriteLine(exempel);
         }
-        //hämta Json från SMHI
+
+        public JObject GetJsonForecastGothenburg()
+        {
+            double longitude = 11.974560;
+            double latitude = 57.708870;
+            
+            return GetJsonForecast(longitude, latitude);
+        }
+
+        public string CoordinateWithDot(double coordinate)
+        {
+            return coordinate.ToString("0.000000", System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+
     }
 }
