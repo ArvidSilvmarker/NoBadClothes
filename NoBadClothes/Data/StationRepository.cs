@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace NoBadClothes.Data
 {
@@ -18,7 +19,7 @@ namespace NoBadClothes.Data
 
         public void AddStations(List<Station> topTen)
         {
-            using (context)
+            using (var context = new NoBadContext())
             {
                 context.Stations.AddRange(topTen);
                 context.SaveChanges();
@@ -28,7 +29,7 @@ namespace NoBadClothes.Data
 
         public Station GetStation(string cityName)
         {
-            return context.Stations.FirstOrDefault(s => s.Name == cityName);
+            return context.Stations.Include(s => s.WeatherForecast).FirstOrDefault(s => s.Name == cityName);
         }
     }
 }

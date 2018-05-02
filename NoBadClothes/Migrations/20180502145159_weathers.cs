@@ -10,6 +10,22 @@ namespace NoBadClothes.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Stations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    ReferenceTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Weathers",
                 columns: table => new
                 {
@@ -46,6 +62,9 @@ namespace NoBadClothes.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Weathers");
+
+            migrationBuilder.DropTable(
+                name: "Stations");
         }
     }
 }
