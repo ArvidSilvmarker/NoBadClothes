@@ -11,7 +11,7 @@ namespace NoBadClothes
         public Station UpdateStation(JObject jObject, Station station)
         {
             var example = (string)jObject["timeSeries"][0]["parameters"][0]["name"];
-            return example;
+            return new Station();
         }
         //läs Json och skapa objekt
     }
