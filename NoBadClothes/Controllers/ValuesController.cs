@@ -32,7 +32,7 @@ namespace NoBadClothes
             {
                 Forecast goteborgForecast = _getWeatherFromSMHI.GetJsonForecast2(new Station { Name = "Göteborg", Latitude = 57.4018, Longitude = 11.5851 });
                 string text = goteborgForecast.timeSeries[0].parameters[11].values[0].ToString();
-                return Ok(test);
+                return Ok(text);
             }
             catch (Exception exception)
             {
