@@ -8,7 +8,7 @@ namespace NoBadClothes
 {
     public class ReadWeather
     {
-        public string ReadJson(JObject jObject)
+        public Station UpdateStation(JObject jObject, Station station)
         {
             var example = (string)jObject["timeSeries"][0]["parameters"][0]["name"];
             return example;
