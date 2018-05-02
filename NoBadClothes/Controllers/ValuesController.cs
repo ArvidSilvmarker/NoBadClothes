@@ -26,16 +26,11 @@ namespace NoBadClothes
         [Route("SeedTopTen"), HttpPost]
         public IActionResult SeedTopTen()
         {
-            try
-            {
-                var topTen = _getWeatherFromSMHI.GetForecastTopTenCities();
-                stationRepository.AddStations(topTen);
-                return Ok("Sucessfully seeded top ten cities.");
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            stationRepository.ClearDatabase();
+            var topTen = _getWeatherFromSMHI.GetForecastTopTenCities();
+            stationRepository.AddStations(topTen);
+            return Ok("Sucessfully seeded top ten cities.");
+
         }
 
         [Route("getweather"), HttpGet]
