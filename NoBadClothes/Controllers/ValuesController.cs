@@ -9,6 +9,15 @@ namespace NoBadClothes
     [Route("api/weather")]
     public class ValuesController : Controller
     {
+
+        [Route("test"), HttpGet]
+        public IActionResult Test(string test)
+        {
+
+
+
+            return Ok("Väder!");
+        }
        
     }
 }
