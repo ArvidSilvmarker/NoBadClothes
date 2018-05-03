@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace NoBadClothes
 {
-    public class ReadWeather
+    public class WeatherMapper
     {
         public Station UpdateStation(Forecast forecast, Station station)
         {

@@ -32,7 +32,7 @@ namespace NoBadClothes.Domain
 
     }
 
-    public class ClothesSuggestions
+    public class ClothesSuggestion
     {
         public Clothes Clothes { get; set; }
         public bool InBag { get; set; }

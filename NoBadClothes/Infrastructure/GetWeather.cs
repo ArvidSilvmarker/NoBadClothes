@@ -11,7 +11,7 @@ namespace NoBadClothes
 {
     public class GetWeather
     {
-        private ReadWeather _weatherReader = new ReadWeather();
+        private WeatherMapper _weatherReader = new WeatherMapper();
 
         public Station GetForecast(Station station)
         {

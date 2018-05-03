@@ -11,15 +11,14 @@ namespace NoBadClothes.Controllers
     public class ClothesController : Controller
     {
         private StationRepository stationRepository = new StationRepository();
+        private ClothesPicker clothesPicker = new ClothesPicker();
 
         [Route("getClothes"), HttpGet]
-        public IActionResult getOuterLayer(string cityName, DateTime datetime, int hour)
+        public IActionResult getClothes(string cityName, DateTime datetime, int hour)
         {
-            var station = stationRepository.GetStation(cityName);
-            var temp = station.WeatherForecast[0].Temperature;
+            var json = clothesPicker.getClothes(cityName, datetime, hour);
 
-
-            return (Ok(temp));
+            return Json(json);
 
         }
     }
