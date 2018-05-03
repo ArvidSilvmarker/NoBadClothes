@@ -37,7 +37,8 @@ namespace NoBadClothes
         public IActionResult GetWeatherTime(string cityName, DateTime datetime)
         {
             var station = stationRepository.GetStation(cityName);
-            return (Ok(station));
+            var weather = station.WeatherForecast.First(w => w.Time.Hour == datetime.Hour);
+            return Json(weather);
         }
 
         [Route("getweathertomorrow"), HttpGet]
