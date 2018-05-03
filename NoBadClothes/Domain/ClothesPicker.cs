@@ -28,8 +28,8 @@ namespace NoBadClothes
             Station station = stationRepository.GetStation(cityName);
             var parameters = new ClothingParameters
             {
-                Temperature = getMeanTemperature(station, datetime, duration),
-                Precipation = getWorstPrecipation(station, datetime, duration)
+                Temperature = GetMeanTemperature(station, datetime, duration),
+                Precipation = GetWorstPrecipation(station, datetime, duration)
             };
 
 
@@ -45,6 +45,25 @@ namespace NoBadClothes
         {
             if (parameters.Precipation > 3)
                 suggestion.ClothesList.Add(Raincoat);
+        }
+
+        public double GetMeanTemperature(Station station, DateTime from, int duration)
+        {
+            DateTime to = from.AddHours(duration);
+            var weatherDuringPeriod = new List<Weather>();
+            foreach (var weather in station.WeatherForecast)
+            {
+                if (weather.Time => from && weather.Time <= to)
+                    weatherDuringPeriod.Add(weather);
+            }
+
+            double totalTemp = 0;
+            foreach (var weather in weatherDuringPeriod)
+            {
+                totalTemp += weather.Temperature;
+            }
+
+            return totalTemp / weatherDuringPeriod.Count;
         }
     }
 
