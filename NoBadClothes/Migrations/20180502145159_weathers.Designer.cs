@@ -11,8 +11,8 @@ using System;
 namespace NoBadClothes.Migrations
 {
     [DbContext(typeof(NoBadContext))]
-    [Migration("20180502134026_first")]
-    partial class first
+    [Migration("20180502145159_weathers")]
+    partial class weathers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,43 @@ namespace NoBadClothes.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stations");
+                });
+
+            modelBuilder.Entity("NoBadClothes.Weather", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("PrecipationCategory");
+
+                    b.Property<double>("PrecipationMean");
+
+                    b.Property<int?>("StationId");
+
+                    b.Property<double>("Temperature");
+
+                    b.Property<DateTime>("Time");
+
+                    b.Property<int>("WeatherSymbol");
+
+                    b.Property<int>("WindDirection");
+
+                    b.Property<double>("WindGust");
+
+                    b.Property<double>("WindSpeed");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StationId");
+
+                    b.ToTable("Weathers");
+                });
+
+            modelBuilder.Entity("NoBadClothes.Weather", b =>
+                {
+                    b.HasOne("NoBadClothes.Station", "Station")
+                        .WithMany("WeatherForecast")
+                        .HasForeignKey("StationId");
                 });
 #pragma warning restore 612, 618
         }

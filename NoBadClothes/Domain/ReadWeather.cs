@@ -16,7 +16,6 @@ namespace NoBadClothes
             foreach (var timeseries in forecast.timeSeries)
             {
                 buildWeather(station, timeseries);
-                
             }
             return station;
 

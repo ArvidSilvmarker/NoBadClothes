@@ -16,6 +16,7 @@ namespace NoBadClothes
         public Station GetForecast(Station station)
         {
             return _weatherReader.UpdateStation(GetJsonForecast(station), station);
+
         }
 
         public List<Station> GetForecasts(List<Station> stations)
