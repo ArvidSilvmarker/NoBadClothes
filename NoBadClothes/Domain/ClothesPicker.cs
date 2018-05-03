@@ -11,19 +11,7 @@ namespace NoBadClothes
     {
         private StationRepository stationRepository = new StationRepository();
 
-        public void OutherLayer(double temperature, PrecipationCategory precipationCategory)
-        {
-            
-
-            if (temperature < 10)
-            {
-
-            }
-
-        }
-
-
-        public ClothesSuggestion getClothes(string cityName, DateTime datetime, int duration)
+        public ClothesSuggestion GetClothes(string cityName, DateTime datetime, int duration)
         {
             Station station = stationRepository.GetStation(cityName);
             var parameters = new ClothingParameters
@@ -32,20 +20,19 @@ namespace NoBadClothes
                 Precipation = GetWorstPrecipation(station, datetime, duration)
             };
 
-
             var suggestion = new ClothesSuggestion();
-            suggestion = GetInnerClothes(suggestion, parameters);
-            suggestion = GetMiddleClothes(suggestion, parameters);
-            suggestion = GetOuterClothes(suggestion, parameters);
+            // suggestion = GetInnerClothes(suggestion, parameters);
+            //suggestion = GetMiddleClothes(suggestion, parameters);
+            //suggestion = GetOuterClothes(suggestion, parameters);
 
             return suggestion;
         }
 
-        private ClothesSuggestion GetOuterClothes(ClothesSuggestion suggestion, ClothingParameters parameters)
-        {
-            if (parameters.Precipation > 3)
-                suggestion.ClothesList.Add(Raincoat);
-        }
+        //private ClothesSuggestion GetOuterClothes(ClothesSuggestion suggestion, ClothingParameters parameters)
+        //{
+        //    if (parameters.Precipation > 3)
+        //        suggestion.ClothesList.Add(Raincoat);
+        //}
 
         public double GetMeanTemperature(Station station, DateTime from, int duration)
         {
@@ -53,7 +40,7 @@ namespace NoBadClothes
             var weatherDuringPeriod = new List<Weather>();
             foreach (var weather in station.WeatherForecast)
             {
-                if (weather.Time => from && weather.Time <= to)
+                if (weather.Time >= from && weather.Time <= to)
                     weatherDuringPeriod.Add(weather);
             }
 
@@ -66,24 +53,23 @@ namespace NoBadClothes
             return totalTemp / weatherDuringPeriod.Count;
         }
 
-        public PrecipationCategory GetWorstPrecipation(Station station, DateTime from, int duration)
+        public double GetWorstPrecipation(Station station, DateTime from, int duration)
         {
             DateTime to = from.AddHours(duration);
             var weatherDuringPeriod = new List<Weather>();
             foreach (var weather in station.WeatherForecast)
             {
-                if (weather.Time => from && weather.Time <= to)
+                if (weather.Time >= from && weather.Time <= to)
                     weatherDuringPeriod.Add(weather);
             }
 
-            int worstPrecipation = 0;
+            double worstPrecipation = 0;
             foreach (var weather in weatherDuringPeriod)
             {
-                 worstPrecipation = (int)weather.PrecipationCategory;
+                if (weather.PrecipationMean > worstPrecipation)
+                worstPrecipation = weather.PrecipationMean;
             }
-
-            return totalTemp / weatherDuringPeriod.Count;
-
+            return worstPrecipation;
         }
 
     }

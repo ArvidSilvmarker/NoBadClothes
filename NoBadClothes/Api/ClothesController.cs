@@ -16,7 +16,7 @@ namespace NoBadClothes.Controllers
         [Route("getClothes"), HttpGet]
         public IActionResult getClothes(string cityName, DateTime datetime, int hour)
         {
-            var json = clothesPicker.getClothes(cityName, datetime, hour);
+            var json = clothesPicker.GetClothes(cityName, datetime, hour);
 
             return Json(json);
 

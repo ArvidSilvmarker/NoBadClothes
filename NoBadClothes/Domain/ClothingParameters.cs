@@ -7,7 +7,8 @@ namespace NoBadClothes.Domain
 {
     public class ClothingParameters
     {
-        public int Temperature { get; set; }
-        public PrecipationCategory Precipation { get; set; }
+        public double Temperature { get; set; }
+        public PrecipationCategory PrecipationCategory { get; set; }
+        public double Precipation { get; set; }
     }
 }
