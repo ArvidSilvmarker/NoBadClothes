@@ -33,13 +33,22 @@ namespace NoBadClothes
 
         }
 
-        [Route("getweather"), HttpGet]
-        public IActionResult GetWeather(string cityName, DateTime datetime)
+        [Route("getweathertime"), HttpGet]
+        public IActionResult GetWeatherTime(string cityName, DateTime datetime)
         {
             var station = stationRepository.GetStation(cityName);
             var weather = station.WeatherForecast.First(w => w.Time == datetime);
             return Ok(
                 $"Vädret i {station.Name} klockan {datetime.TimeOfDay}: {weather.Temperature} grader och {weather.PrecipationCategory.ToString()}");
+        }
+
+        [Route("getweathertomorrow"), HttpGet]
+        public IActionResult GetWeatherTomorrow(string cityName)
+        {
+            var tomorrow = DateTime.Today.AddDays(1).AddHours(12);
+            var station = stationRepository.GetStation(cityName);
+            var weather = station.WeatherForecast.First(w => w.Time == tomorrow);
+            return Ok(tomorrow.ToString());
         }
 
     }
