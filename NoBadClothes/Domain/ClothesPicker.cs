@@ -10,9 +10,11 @@ namespace NoBadClothes
     public class ClothesPicker
     {
         private StationRepository stationRepository = new StationRepository();
+        private Clothes clothes = new Clothes();
 
-        public ClothesSuggestion GetClothes(string cityName, DateTime datetime, int duration)
+        public List<ClothesSuggestion> GetClothes(string cityName, DateTime datetime, int duration)
         {
+            List<Clothes> possibleClothes = clothes.PossibleClothes();
             Station station = stationRepository.GetStation(cityName);
             var parameters = new ClothingParameters
             {
@@ -20,19 +22,32 @@ namespace NoBadClothes
                 Precipation = GetWorstPrecipation(station, datetime, duration)
             };
 
-            var suggestion = new ClothesSuggestion();
+            var suggestions = new List<ClothesSuggestion>();
             // suggestion = GetInnerClothes(suggestion, parameters);
             //suggestion = GetMiddleClothes(suggestion, parameters);
-            //suggestion = GetOuterClothes(suggestion, parameters);
-
-            return suggestion;
+            suggestions = GetOuterClothes(suggestions, parameters, possibleClothes);
+            return suggestions;
         }
 
-        //private ClothesSuggestion GetOuterClothes(ClothesSuggestion suggestion, ClothingParameters parameters)
-        //{
-        //    if (parameters.Precipation > 3)
-        //        suggestion.ClothesList.Add(Raincoat);
-        //}
+        private List<ClothesSuggestion> GetOuterClothes(List<ClothesSuggestion> suggestions, ClothingParameters parameters, List<Clothes> possibleClothes)
+        {
+            if (parameters.Precipation > 0)
+            {
+                var suggestion = new ClothesSuggestion();
+                suggestion.Clothes = possibleClothes.First(c => c.Name == "Regnjacka");
+                suggestions.Add(suggestion);
+
+            }
+            else
+            {
+                var suggestion = new ClothesSuggestion();
+                suggestion.Clothes = possibleClothes.First(c => c.Name == "Vantar");
+                suggestions.Add(suggestion);
+
+            }
+            return suggestions;
+
+        }
 
         public double GetMeanTemperature(Station station, DateTime from, int duration)
         {

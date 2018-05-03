@@ -30,6 +30,16 @@ namespace NoBadClothes.Domain
         public ClothesPlasement ClothesPlasement { get; set; }
         public ClothesLayer ClothesLayer { get; set; }
 
+        public List<Clothes> PossibleClothes()
+        {
+            List<Clothes> possibleClothes = new List<Clothes>();
+            var raincoat = new Clothes {ClothesLayer = ClothesLayer.OutherLayer, ClothesPlasement = ClothesPlasement.UpperBody, Name = "Regnjacka"};
+            possibleClothes.Add(raincoat);
+            var mittens = new Clothes { ClothesLayer = ClothesLayer.OutherLayer, ClothesPlasement = ClothesPlasement.Hands, Name = "Vantar" };
+            possibleClothes.Add(mittens);
+            return possibleClothes;
+        }
+
     }
 
     public class ClothesSuggestion
@@ -38,6 +48,5 @@ namespace NoBadClothes.Domain
         public bool InBag { get; set; }
 
     }
-
 
 }
