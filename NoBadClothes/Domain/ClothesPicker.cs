@@ -24,27 +24,69 @@ namespace NoBadClothes
 
             var suggestions = new List<ClothesSuggestion>();
             // suggestion = GetInnerClothes(suggestion, parameters);
-            //suggestion = GetMiddleClothes(suggestion, parameters);
+            
             suggestions = GetOuterClothes(suggestions, parameters, possibleClothes);
+            suggestions = GetMidClothes(suggestions, parameters, possibleClothes);
             return suggestions;
         }
 
         private List<ClothesSuggestion> GetOuterClothes(List<ClothesSuggestion> suggestions, ClothingParameters parameters, List<Clothes> possibleClothes)
         {
-            if (parameters.Precipation > 0)
+            if (parameters.Temperature < 5)
             {
-                var suggestion = new ClothesSuggestion();
-                suggestion.Clothes = possibleClothes.First(c => c.Name == "Regnjacka");
+                var suggestion = new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Vinterjacka") };
                 suggestions.Add(suggestion);
+                var suggestion1 = new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Vantar") };
+                suggestions.Add(suggestion1);
+                var suggestion2 = new ClothesSuggestion{ Clothes = possibleClothes.First(c => c.Name == "Mössa") };
+                suggestions.Add(suggestion2);
+                var suggestion3 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Vinterstövlar") };
+                suggestions.Add(suggestion3);
+            }
 
+            else if (parameters.Precipation > 0)
+            {
+                var suggestion = new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Regnjacka") };
+                suggestions.Add(suggestion);
+                var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Stövlar") };
+                suggestions.Add(suggestion1);
+            }
+            else if (parameters.Temperature < 15)
+            {
+                var suggestion = new ClothesSuggestion{ Clothes = possibleClothes.First(c => c.Name == "Sommarjacka") };
+                suggestions.Add(suggestion);
+                var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Gympaskor") };
+                suggestions.Add(suggestion1);
             }
             else
             {
-                var suggestion = new ClothesSuggestion();
-                suggestion.Clothes = possibleClothes.First(c => c.Name == "Vantar");
+                var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Sandaler") };
                 suggestions.Add(suggestion);
-
             }
+            return suggestions;
+
+        }
+
+        private List<ClothesSuggestion> GetMidClothes(List<ClothesSuggestion> suggestions, ClothingParameters parameters, List<Clothes> possibleClothes)
+        {
+            if (parameters.Temperature < 18)
+            {
+                var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Långbyxor") };
+                suggestions.Add(suggestion);
+                var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Tröja") };
+                suggestions.Add(suggestion1);
+                var suggestion2 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "T-tröja") };
+                suggestions.Add(suggestion2);
+            }
+            else
+            {
+                var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Shorts") };
+                suggestions.Add(suggestion);
+                var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "T-tröja") };
+                suggestions.Add(suggestion1);
+            }
+
+
             return suggestions;
 
         }
