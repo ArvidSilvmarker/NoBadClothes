@@ -65,6 +65,27 @@ namespace NoBadClothes
 
             return totalTemp / weatherDuringPeriod.Count;
         }
+
+        public PrecipationCategory GetWorstPrecipation(Station station, DateTime from, int duration)
+        {
+            DateTime to = from.AddHours(duration);
+            var weatherDuringPeriod = new List<Weather>();
+            foreach (var weather in station.WeatherForecast)
+            {
+                if (weather.Time => from && weather.Time <= to)
+                    weatherDuringPeriod.Add(weather);
+            }
+
+            int worstPrecipation = 0;
+            foreach (var weather in weatherDuringPeriod)
+            {
+                 worstPrecipation = (int)weather.PrecipationCategory;
+            }
+
+            return totalTemp / weatherDuringPeriod.Count;
+
+        }
+
     }
 
 }
