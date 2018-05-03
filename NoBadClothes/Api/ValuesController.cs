@@ -36,9 +36,14 @@ namespace NoBadClothes
         [Route("getweathertime"), HttpGet]
         public IActionResult GetWeatherTime(string cityName, DateTime datetime)
         {
+
             var station = stationRepository.GetStation(cityName);
             var weather = station.WeatherForecast.First(w => w.Time.Hour == datetime.Hour);
-            return Json(weather);
+
+            if (weather != null)
+                return Ok($"Temp={weather.Temperature};Category={weather.PrecipationCategory}");
+
+            return BadRequest("Hittade inget väder");
         }
 
         [Route("getweathertomorrow"), HttpGet]
