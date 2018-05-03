@@ -41,7 +41,8 @@ namespace NoBadClothes
             var weather = station.WeatherForecast.First(w => w.Time.Hour == datetime.Hour);
 
             if (weather != null)
-                return Ok($"Temp={weather.Temperature};Category={weather.PrecipationCategory}");
+                return Json(weather);
+                //return Ok($"Temp={weather.Temperature};Category={weather.PrecipationCategory}");
 
             return BadRequest("Hittade inget väder");
         }

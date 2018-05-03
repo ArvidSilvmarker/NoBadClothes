@@ -8,7 +8,7 @@ namespace NoBadClothes
     public class Weather
     {
         public int Id { get; set; }
-        public Station Station { get; set; }
+        //public Station Station { get; set; }
         public DateTime Time { get; set; }
         public double Temperature { get; set; } //t - mäts i grader Celcius med en decimal.
         public int WindDirection { get; set; } //wd - mäts i grader
