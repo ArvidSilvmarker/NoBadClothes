@@ -37,7 +37,7 @@ namespace NoBadClothes
         public IActionResult GetWeather(string cityName, DateTime datetime)
         {
             var station = stationRepository.GetStation(cityName);
-            return (Ok(station.Name));
+            return (Ok(station));
         }
 
     }
