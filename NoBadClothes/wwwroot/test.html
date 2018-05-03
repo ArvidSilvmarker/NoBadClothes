@@ -10,12 +10,21 @@
     Test: <input name="test" value="" />
     <button>Test</button>
 </form>
-
+<hr />
 <form method="get" action="/api/weather/gbgnexthourtemp">
     Temperatur i Göteborg:
     <button>Visa temperatur</button>
 </form>
 
+<hr />
+<h3>Visa väder</h3>
+<form action="/api/weather/getweathertime">
+    Stad: <input name="cityName" value="" />
+    Tidpunkt: <input name="dateTime" value="" />
+    <input type="submit" value="Visa väder"/>
+</form>
+
+<hr />
 <form method="post" action="/api/weather/seedtopten">
     Ladda ner data för Sveriges 10 största städer:
     <button>Seed</button>
