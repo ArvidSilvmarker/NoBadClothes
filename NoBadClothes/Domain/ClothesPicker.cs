@@ -58,9 +58,15 @@ namespace NoBadClothes
                 var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Gympaskor") };
                 suggestions.Add(suggestion1);
             }
-            else
+            else if (parameters.Temperature > 25)
             {
                 var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Sandaler") };
+                suggestions.Add(suggestion);
+
+            }
+            else
+            {
+                var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Gympaskor") };
                 suggestions.Add(suggestion);
             }
             return suggestions;
