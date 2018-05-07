@@ -9,6 +9,8 @@ namespace NoBadClothes
 {
     public class ClothesPicker
     {
+        private const int TEMPforWinterClothes = 5;
+
         private StationRepository stationRepository = new StationRepository();
         private Clothes clothes = new Clothes();
 
@@ -32,10 +34,10 @@ namespace NoBadClothes
 
         private List<ClothesSuggestion> GetOuterClothes(List<ClothesSuggestion> suggestions, ClothingParameters parameters, List<Clothes> possibleClothes)
         {
-            if (parameters.Temperature < 5)
+            if (parameters.Temperature < TEMPforWinterClothes)
             {
-                var suggestion = new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Vinterjacka") };
-                suggestions.Add(suggestion);
+                suggestions.Add(new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Vinterjacka") });
+
                 var suggestion1 = new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Vantar") };
                 suggestions.Add(suggestion1);
                 var suggestion2 = new ClothesSuggestion{ Clothes = possibleClothes.First(c => c.Name == "Mössa") };
