@@ -23,5 +23,12 @@ namespace NoBadClothes
             return Ok("Sucessfully seeded top ten cities.");
 
         }
+
+        [Route("getTopTenCityNames"), HttpGet]
+        public IActionResult GetTopTenCityNames()
+        {
+            var cities = _getWeatherFromSMHI.GetForecastTopTenCities();
+            return Json(cities.Select(c => c.Name));
+        }
     }
 }

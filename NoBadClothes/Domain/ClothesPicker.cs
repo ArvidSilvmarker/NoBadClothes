@@ -4,20 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using NoBadClothes.Data;
 using NoBadClothes.Domain;
+using NoBadClothes.Domain.Interfaces;
 
 namespace NoBadClothes
 {
     public class ClothesPicker
     {
-        private const int TEMPforWinterClothes = 5;
+        private const double MAXTemperatureForWinterClothes = 5;
+        private const double MINPrecipationForRainClothes = 0;
+        private const double MAXTemperatureForSpringClothes = 15;
+        private const double MINTemperatureForSummerShoes = 25;
 
-        private StationRepository stationRepository = new StationRepository();
-        private ClothesPackages _clothesPackages = new ClothesPackages();
+        private readonly IStationRepository _stationRepository = new StationRepository();
 
         public List<string> GetClothes(string cityName, DateTime datetime, int duration)
         {
 
-            Station station = stationRepository.GetStation(cityName);
+            Station station = _stationRepository.GetStation(cityName);
             var parameters = new ClothingParameters(station, datetime, duration);
             return CalculateClothes(parameters); ;
         }
@@ -25,34 +28,24 @@ namespace NoBadClothes
         private List<string> CalculateClothes(ClothingParameters parameters)
         {
             var clothes = new List<string>();
-            if (parameters.Temperature < TEMPforWinterClothes)
-                clothes.AddRange(ClothesPackages.WinterClothes);
 
-            else if (parameters.Precipation > 0)
+            if (parameters.Temperature < MAXTemperatureForWinterClothes)
+                clothes.AddRange(ClothesPackages.WinterClothes);
+            else if (parameters.Precipation > MINPrecipationForRainClothes)
                 clothes.AddRange(ClothesPackages.RainClothes);
-            
-            else if (parameters.Temperature < 15)
+            else if (parameters.Temperature < MAXTemperatureForSpringClothes)
                 clothes.AddRange(ClothesPackages.SpringClothes);
-    
-            else if (parameters.Temperature > 25)
+            else if (parameters.Temperature > MINTemperatureForSummerShoes)
                 clothes.AddRange(ClothesPackages.SummerShoes);
             else
                 clothes.AddRange(ClothesPackages.BaseShoes);
-            return clothes;
-        }
 
-        private List<string> GetMidClothes(ClothingParameters parameters)
-        {
-            var clothes = new List<string>();
-            if (parameters.Temperature < 15)
+            if (parameters.Temperature < MAXTemperatureForSpringClothes)
                 clothes.AddRange(ClothesPackages.BaseClothes);
             else
                 clothes.AddRange(ClothesPackages.SummerClothes);
+
             return clothes;
         }
-
-        
-
     }
-
 }

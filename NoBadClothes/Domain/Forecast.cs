@@ -8,6 +8,8 @@ namespace NoBadClothes
 {
     public class Forecast
     {
+        //The Forecast format comes from the SMHI Forecast webapi.
+
         public DateTime approvedTime { get; set; }
         public DateTime referenceTime { get; set; }
         public Geometry geometry { get; set; }

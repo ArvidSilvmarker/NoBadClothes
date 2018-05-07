@@ -1,21 +1,23 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <title>No bad clothes</title>
     <style type="text/css">
-        h1, p {
+        h1, h3, p {
             font-family: "Arial Black", Gadget, sans-serif;
             text-align: center;
             color: DarkCyan;
         }
-        form {
+
+        div {
             font-family: "Arial Black", Gadget, sans-serif;
             color: DarkCyan;
             display: block;
             text-align: center;
-            
         }
+
         ul {
             font-family: "Arial Black", Gadget, sans-serif;
             color: DarkCyan;
@@ -25,21 +27,24 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            width: 50%;
         }
     </style>
+    
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="/js/Clothes.js"></script>
 
 </head>
-<body style="background-color: paleturquoise">
+<body style="background-color: paleturquoise" onload="onLoad()">
 
-    <h1>Vilka kläder ska jag ta på mig</h1>
+    <h1>Det finns inga dåliga kläder</h1>
+    <h3>...bara dåligt väder</h3>
     <hr />
 
 
-    <form method="get" action="/api/clothes/getClothes/">
+    <div>
         Välj stad:<br />
-        <select name="cityName" id="cityName">
-            <option value="Stockholm">Stockholm</option>
+        <select name="cityNames" id="cityNames">
+            <!--<option value="Stockholm">Stockholm</option>
             <option value="Göteborg">Göteborg</option>
             <option value="Malmö">Malmö</option>>
             <option value="Uppsala">Uppsala</option>
@@ -48,7 +53,7 @@
             <option value="Linköping">Linköping</option>
             <option value="Helsingborg">Helsingborg</option>
             <option value="Jönköping">Jönköping</option>
-            <option value="Norrköping">Norrköping</option>
+            <option value="Norrköping">Norrköping</option>-->
         </select>
         <br />
         <br />
@@ -68,14 +73,13 @@
             <option value="55">55</option>
         </select>
         <br><br />
-        <button id="whatButton">What??!!</button>
-    </form>
+        <button id="whatButton">Vilka kläder ska jag ta på mig?</button>
+    </div>
     <hr />
 
-    <section id="text"></section>
+    <div id="text"></div>
 
-    <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="/js/NewsApp.js"></script> -->
 
-    </body>
-    </html>
+
+</body>
+</html>
