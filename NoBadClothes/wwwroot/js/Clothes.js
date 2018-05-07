@@ -30,39 +30,30 @@
 });
 
 function onLoad() {
-    populateCityDropDown();
+    PopulateOptionCities();
 };
 
-function populateCityDropDown() {
-    console.log("Populerar stadsnamn.")
-    var select = document.getElementById("cityNames");
-    var cities = getTopTenCities();
-
-    for (var i = 0; i < 10; i++) {
-        var city = cities[i];
-        var element = document.createElement("option");
-        element.textContent = city;
-        element.value = city;
-        select.appendChild(element);
-    };
-};
-
-$('#select').empty();
-$.each(options, function (i, p) {
-    $('#select').append($('<option></option>').val(p).html(p));
-});
 
 
-function getTopTenCities() {
+
+function PopulateOptionCities() {
     $.ajax({
         url: "/api/weather/getTopTenCityNames",
-        method: "GET"
-    })
-    .done(function (result) {
-        console.log(result);
-        return result;
-    })
-    .fail(function (xhr, status, error) {
-        alert("error");
+        method: "GET",
+        success: function (cities) {
+            var select = document.getElementById("cityNames");
+
+            for (var i = 0; i < 10; i++) {
+                var city = cities[i];
+                var element = document.createElement("option");
+                element.textContent = city;
+                element.value = city;
+                select.appendChild(element);
+            };
+
+        },
+        error: function(xhr, status, error) {
+            alert("error");
+        }
     });
-};
+}
