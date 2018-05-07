@@ -10,7 +10,7 @@ using NoBadClothes.Domain.Interfaces;
 
 namespace NoBadClothes
 {
-    public class GetWeather : IGetWeather
+    public class GetWeatherFromSmhi : IGetWeather
     {
         public List<Station> GetForecastTopTenCities()
         {
