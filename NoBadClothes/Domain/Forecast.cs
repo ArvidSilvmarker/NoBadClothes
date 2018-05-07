@@ -13,7 +13,6 @@ namespace NoBadClothes
         public Geometry geometry { get; set; }
         public List<Timeseries> timeSeries { get; set; }
 
-
         public class Geometry
         {
             public string type { get; set; }

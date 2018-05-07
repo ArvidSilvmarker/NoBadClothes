@@ -11,15 +11,12 @@ namespace NoBadClothes
     {
         public Station UpdateStation(Forecast forecast, Station station)
         {
-            
             station.ReferenceTime = forecast.referenceTime;
             foreach (var timeseries in forecast.timeSeries)
             {
                 buildWeather(station, timeseries);
             }
             return station;
-
-
         }
 
         public void buildWeather(Station station, Forecast.Timeseries timeSeries)
@@ -38,9 +35,6 @@ namespace NoBadClothes
             weather.PrecipationMean = timeSeries.parameters.First(p => p.name == "pmean").values[0];
 
             station.WeatherForecast.Add(weather);
-
-
         }
-        //läs Json och skapa objekt
     }
 }

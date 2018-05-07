@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NoBadClothes.Data;
+using NoBadClothes.Domain.Interfaces;
 
 namespace NoBadClothes.Controllers
 {
     [Route("api/clothes")]
     public class ClothesController : Controller
     {
-        private StationRepository stationRepository = new StationRepository();
+        private IStationRepository stationRepository = new StationRepository();
         private ClothesPicker clothesPicker = new ClothesPicker();
 
         [Route("getClothes"), HttpGet]
