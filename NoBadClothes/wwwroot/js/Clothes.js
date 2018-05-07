@@ -1,14 +1,9 @@
 ﻿$(document).ready(function() {
     $("#whatButton").click(function() {
 
-        //alert("första");
         var h = $("#hour").val();
         var d = $("#dateTime").val();
         var c = $("#cityNames").val();
-
-
-        //location.href = "/api/clothes/getClothes?hour={h}&dateTime={d}&cityName={c}";
-
 
         $.ajax({
                 url: "/api/clothes/getClothesImg/",
@@ -18,10 +13,8 @@
                     dateTime: d,
                     cityName: c
                 }
-
             })
             .done(function(result) {
-                //document.getElementById("text").innerHTML = result;
                 $("#text").html(result);
                 console.log(result);
             })
@@ -36,10 +29,8 @@
 
 function onLoad() {
     PopulateOptionCities();
+    $('input[type=datetime-local]').val(new Date().toJSON().slice(0, 19));
 };
-
-
-
 
 function PopulateOptionCities() {
     $.ajax({
@@ -55,7 +46,6 @@ function PopulateOptionCities() {
                 element.value = city;
                 select.appendChild(element);
             };
-
         },
         error: function(xhr, status, error) {
             alert("error");
