@@ -16,9 +16,24 @@ namespace NoBadClothes.Controllers
         [Route("getClothes"), HttpGet]
         public IActionResult getClothes(string cityName, DateTime datetime, int hour)
         {
-            var json = clothesPicker.GetClothes(cityName, datetime, hour);
+            List<string> suggestion = clothesPicker.GetClothes(cityName, datetime, hour).Select(c => c.Clothes).Select(c => c.Name).ToList();
 
-            return Json(json);
+            string outputResult = string.Join("<br>", suggestion);
+            return Ok(outputResult);
+
+        }
+
+        [Route("getClothesImg"), HttpGet]
+        public IActionResult getClothesImg(string cityName, DateTime datetime, int hour)
+        {
+            List<string> suggestion = clothesPicker.GetClothes(cityName, datetime, hour).Select(c => c.Clothes).Select(c => c.Name).ToList();
+
+            string outputResult = "";
+            foreach (var clothes in suggestion)
+            {
+                outputResult += $"<img src=img/{clothes}.png width=\"200px\" height=\"200px\"/><br />";
+            }
+            return Ok(outputResult);
 
         }
     }

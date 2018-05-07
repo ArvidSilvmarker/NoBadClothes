@@ -1,6 +1,6 @@
 ﻿$("#whatButton").click(function () {
 
-    alert("första");
+    //alert("första");
     var h = $("#hour").val();
     var d = $("#dateTime").val();
     var c = $("#cityName").val();
@@ -10,7 +10,8 @@
 
 
     $.ajax({
-        url: "/api/clothes/getClothes/",
+        url: "/api/clothes/getClothesImg/",
+        method: "GET",
         data: {
             hour: h,
             dateTime : d,
@@ -18,9 +19,9 @@
 
         })
         .done(function (result) {
-            ("#text").html("<h2> Ha!.</h2>");
-            alert("hello");
-
+            //document.getElementById("text").innerHTML = result;
+            $("#text").html(result);
+            console.log(result);
         })
         .fail(function (xhr, status, error) {
 
