@@ -12,130 +12,46 @@ namespace NoBadClothes
         private const int TEMPforWinterClothes = 5;
 
         private StationRepository stationRepository = new StationRepository();
-        private Clothes clothes = new Clothes();
+        private ClothesPackages _clothesPackages = new ClothesPackages();
 
-        public List<ClothesSuggestion> GetClothes(string cityName, DateTime datetime, int duration)
+        public List<string> GetClothes(string cityName, DateTime datetime, int duration)
         {
-            List<Clothes> possibleClothes = clothes.PossibleClothes();
-            Station station = stationRepository.GetStation(cityName);
-            var parameters = new ClothingParameters
-            {
-                Temperature = GetMeanTemperature(station, datetime, duration),
-                Precipation = GetWorstPrecipation(station, datetime, duration)
-            };
 
-            var suggestions = new List<ClothesSuggestion>();
-            // suggestion = GetInnerClothes(suggestion, parameters);
-            
-            suggestions = GetOuterClothes(suggestions, parameters, possibleClothes);
-            suggestions = GetMidClothes(suggestions, parameters, possibleClothes);
-            return suggestions;
+            Station station = stationRepository.GetStation(cityName);
+            var parameters = new ClothingParameters(station, datetime, duration);
+            return CalculateClothes(parameters); ;
         }
 
-        private List<ClothesSuggestion> GetOuterClothes(List<ClothesSuggestion> suggestions, ClothingParameters parameters, List<Clothes> possibleClothes)
+        private List<string> CalculateClothes(ClothingParameters parameters)
         {
+            var clothes = new List<string>();
             if (parameters.Temperature < TEMPforWinterClothes)
-            {
-                suggestions.Add(new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Vinterjacka") });
-
-                var suggestion1 = new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Vantar") };
-                suggestions.Add(suggestion1);
-                var suggestion2 = new ClothesSuggestion{ Clothes = possibleClothes.First(c => c.Name == "Mössa") };
-                suggestions.Add(suggestion2);
-                var suggestion3 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Vinterstövlar") };
-                suggestions.Add(suggestion3);
-            }
+                clothes.AddRange(ClothesPackages.WinterClothes);
 
             else if (parameters.Precipation > 0)
-            {
-                var suggestion = new ClothesSuggestion{Clothes = possibleClothes.First(c => c.Name == "Regnjacka") };
-                suggestions.Add(suggestion);
-                var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Stövlar") };
-                suggestions.Add(suggestion1);
-            }
+                clothes.AddRange(ClothesPackages.RainClothes);
+            
             else if (parameters.Temperature < 15)
-            {
-                var suggestion = new ClothesSuggestion{ Clothes = possibleClothes.First(c => c.Name == "Sommarjacka") };
-                suggestions.Add(suggestion);
-                var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Gympaskor") };
-                suggestions.Add(suggestion1);
-            }
+                clothes.AddRange(ClothesPackages.SpringClothes);
+    
             else if (parameters.Temperature > 25)
-            {
-                var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Sandaler") };
-                suggestions.Add(suggestion);
-
-            }
+                clothes.AddRange(ClothesPackages.SummerShoes);
             else
-            {
-                var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Gympaskor") };
-                suggestions.Add(suggestion);
-            }
-            return suggestions;
-
+                clothes.AddRange(ClothesPackages.BaseShoes);
+            return clothes;
         }
 
-        private List<ClothesSuggestion> GetMidClothes(List<ClothesSuggestion> suggestions, ClothingParameters parameters, List<Clothes> possibleClothes)
+        private List<string> GetMidClothes(ClothingParameters parameters)
         {
-            if (parameters.Temperature < 18)
-            {
-                var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Långbyxor") };
-                suggestions.Add(suggestion);
-                var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Tröja") };
-                suggestions.Add(suggestion1);
-                var suggestion2 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "T-tröja") };
-                suggestions.Add(suggestion2);
-            }
+            var clothes = new List<string>();
+            if (parameters.Temperature < 15)
+                clothes.AddRange(ClothesPackages.BaseClothes);
             else
-            {
-                var suggestion = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "Shorts") };
-                suggestions.Add(suggestion);
-                var suggestion1 = new ClothesSuggestion { Clothes = possibleClothes.First(c => c.Name == "T-tröja") };
-                suggestions.Add(suggestion1);
-            }
-
-
-            return suggestions;
-
+                clothes.AddRange(ClothesPackages.SummerClothes);
+            return clothes;
         }
 
-        public double GetMeanTemperature(Station station, DateTime from, int duration)
-        {
-            DateTime to = from.AddHours(duration);
-            var weatherDuringPeriod = new List<Weather>();
-            foreach (var weather in station.WeatherForecast)
-            {
-                if (weather.Time >= from && weather.Time <= to)
-                    weatherDuringPeriod.Add(weather);
-            }
-
-            double totalTemp = 0;
-            foreach (var weather in weatherDuringPeriod)
-            {
-                totalTemp += weather.Temperature;
-            }
-
-            return totalTemp / weatherDuringPeriod.Count;
-        }
-
-        public double GetWorstPrecipation(Station station, DateTime from, int duration)
-        {
-            DateTime to = from.AddHours(duration);
-            var weatherDuringPeriod = new List<Weather>();
-            foreach (var weather in station.WeatherForecast)
-            {
-                if (weather.Time >= from && weather.Time <= to)
-                    weatherDuringPeriod.Add(weather);
-            }
-
-            double worstPrecipation = 0;
-            foreach (var weather in weatherDuringPeriod)
-            {
-                if (weather.PrecipationMean > worstPrecipation)
-                worstPrecipation = weather.PrecipationMean;
-            }
-            return worstPrecipation;
-        }
+        
 
     }
 
