@@ -1,31 +1,36 @@
-﻿$("#whatButton").click(function () {
+﻿$(document).ready(function() {
+    $("#whatButton").click(function() {
 
-    //alert("första");
-    var h = $("#hour").val();
-    var d = $("#dateTime").val();
-    var c = $("#cityName").val();
-
-
-    //location.href = "/api/clothes/getClothes?hour={h}&dateTime={d}&cityName={c}";
+        //alert("första");
+        var h = $("#hour").val();
+        var d = $("#dateTime").val();
+        var c = $("#cityNames").val();
 
 
-    $.ajax({
-        url: "/api/clothes/getClothesImg/",
-        method: "GET",
-        data: {
-            hour: h,
-            dateTime : d,
-            cityName : c}
+        //location.href = "/api/clothes/getClothes?hour={h}&dateTime={d}&cityName={c}";
 
-        })
-    .done(function (result) {
-        //document.getElementById("text").innerHTML = result;
-        $("#text").html(result);
-        console.log(result);
-    })
-    .fail(function (xhr, status, error) {
 
-        alert("error");
+        $.ajax({
+                url: "/api/clothes/getClothesImg/",
+                method: "GET",
+                data: {
+                    hour: h,
+                    dateTime: d,
+                    cityName: c
+                }
+
+            })
+            .done(function(result) {
+                //document.getElementById("text").innerHTML = result;
+                $("#text").html(result);
+                console.log(result);
+            })
+            .fail(function(xhr, status, error) {
+                alert(`Error! ${xhr.responseText}`);
+                console.log("xhr", xhr);
+                console.log("status", status);
+                console.log("error", error);
+            });
     });
 });
 
