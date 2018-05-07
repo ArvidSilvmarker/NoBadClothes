@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace NoBadClothes.Domain.Interfaces
 {
-    interface Interface
+    interface IStationRepository
     {
+        void ClearDatabase();
+        void AddStations(List<Station> stationList);
+        Station GetStation(string cityName);
     }
 }

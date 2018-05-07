@@ -14,8 +14,6 @@ namespace NoBadClothes
         public double Longitude { get; set; }
         public DateTime ReferenceTime { get; set; }
         public List<Weather> WeatherForecast { get; set; } = new List<Weather>();
-        
-
     }
 
 }

@@ -8,7 +8,6 @@ namespace NoBadClothes
     public class Weather
     {
         public int Id { get; set; }
-        //public Station Station { get; set; }
         public DateTime Time { get; set; }
         public double Temperature { get; set; } //t - mäts i grader Celcius med en decimal.
         public int WindDirection { get; set; } //wd - mäts i grader
@@ -17,9 +16,6 @@ namespace NoBadClothes
         public PrecipationCategory PrecipationCategory { get; set; }
         public WeatherSymbol WeatherSymbol { get; set; }
         public double PrecipationMean { get; set; } //pmean - mäts i mm/h med en decimal.
-
-
-
     }
 
     public enum PrecipationCategory

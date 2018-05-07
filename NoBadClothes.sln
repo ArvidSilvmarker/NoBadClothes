@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoBadClothes", "NoBadClothes\NoBadClothes.csproj", "{AA7280F0-9B28-4331-ACFE-ADC970B3CA23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoBadClothes", "NoBadClothes\NoBadClothes.csproj", "{AA7280F0-9B28-4331-ACFE-ADC970B3CA23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NadBadTests", "NadBadTests\NadBadTests.csproj", "{0A53EC55-CAA8-4FF8-A604-45D71BA19741}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{AA7280F0-9B28-4331-ACFE-ADC970B3CA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA7280F0-9B28-4331-ACFE-ADC970B3CA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA7280F0-9B28-4331-ACFE-ADC970B3CA23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A53EC55-CAA8-4FF8-A604-45D71BA19741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A53EC55-CAA8-4FF8-A604-45D71BA19741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A53EC55-CAA8-4FF8-A604-45D71BA19741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A53EC55-CAA8-4FF8-A604-45D71BA19741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

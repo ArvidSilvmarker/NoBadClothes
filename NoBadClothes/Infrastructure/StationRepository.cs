@@ -4,32 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using NoBadClothes.Domain.Interfaces;
 
 namespace NoBadClothes.Data
 {
-    public class StationRepository
+    public class StationRepository : IStationRepository
     {
-        private NoBadContext context = new NoBadContext();
+        private readonly NoBadContext _context = new NoBadContext();
 
         public void ClearDatabase()
         {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
         }
 
-        public void AddStations(List<Station> topTen)
+        public void AddStations(List<Station> stationList)
         {
-            using (var context = new NoBadContext())
-            {
-                context.Stations.AddRange(topTen);
-                context.SaveChanges();
-            }
-
+                _context.Stations.AddRange(stationList);
+                _context.SaveChanges();
         }
 
         public Station GetStation(string cityName)
         {
-            return context.Stations.Include(s => s.WeatherForecast).FirstOrDefault(s => s.Name == cityName);
+            return _context.Stations.Include(s => s.WeatherForecast).FirstOrDefault(s => s.Name == cityName);
         }
     }
 }
